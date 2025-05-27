@@ -85,7 +85,7 @@ namespace Simple_LINQ_ExtentionConsole
             }
             catch (ArgumentException e)
             {
-                Console.WriteLine("Argument bigger then collection size " + e.Message);
+                Console.WriteLine("Argument bigger then 100 " + e.Message);
             }
         }
         private static void TestTopPredicate()
