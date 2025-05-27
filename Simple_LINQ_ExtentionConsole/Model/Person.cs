@@ -10,5 +10,11 @@ namespace Simple_LINQ_ExtentionConsole.Model
     {
         internal int Age { get; set; }
         internal string Name { get; set; }
+
+        public Person(int age, string name)
+        {
+            Age = age;
+            Name = name;
+        }
     }
 }

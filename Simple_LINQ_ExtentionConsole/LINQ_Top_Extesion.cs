@@ -33,10 +33,11 @@ namespace Simple_LINQ_ExtentionConsole
             }
             return result;
         }
-        internal static IEnumerable<T> Top<T>(this IEnumerable<T> collection, int percent)
+        internal static IEnumerable<T> Top<T, T2>(this IEnumerable<T> collection, int percent, Func<T, T2> predicate)
         {
             if (collection is null || collection.Count() == 0) return collection!;
             if (percent < 0 || percent >= 101) throw new ArgumentException();
+            if (predicate == null) throw new ArgumentNullException();
 
             double tempresult = (double)collection.Count() * (double)percent / 100.0;
             int newcount = (int)Math.Ceiling(tempresult);
@@ -46,8 +47,10 @@ namespace Simple_LINQ_ExtentionConsole
 
             List<T> result = new List<T>(newcount);
 
+            var sortedCollection = collection.OrderBy(predicate);
+
             int i = 0;
-            foreach (var item in collection.Reverse())
+            foreach (var item in sortedCollection.Reverse())
             {
                 result.Add(item);
                 i++;
