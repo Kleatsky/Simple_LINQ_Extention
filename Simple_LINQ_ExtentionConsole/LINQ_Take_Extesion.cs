@@ -10,10 +10,23 @@ namespace Simple_LINQ_ExtentionConsole
     {
         internal static IEnumerable<T> Take<T>(this IEnumerable<T> collection, int count)
         {
-            if (collection == null || collection.Count() == 0) return collection;
-            if (count == 0) return null;
+            if (collection == null || collection.Count() == 0) return collection!;
+            if (count == 0) return Enumerable.Empty<T>();
             if (count < 0 || collection.Count() < count) throw new ArgumentException();
-            return collection.Take(count);
+
+
+            List<T> result = new List<T>(count);
+            int i = 0;
+
+            foreach (var item in collection)
+            {
+                result.Add(item);
+                i++;
+                if (i == count) break;
+            }
+
+
+            return result;
         }
     }
 }

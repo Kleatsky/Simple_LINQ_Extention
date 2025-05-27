@@ -13,11 +13,47 @@ namespace Simple_LINQ_ExtentionConsole
     {
         internal static IEnumerable<T> Top<T>(this IEnumerable<T> collection, int percent)
         {
-            if (collection is null || collection.Count() == 0) return collection;
+            if (collection is null || collection.Count() == 0) return collection!;
             if (percent < 0 || percent >= 101) throw new ArgumentException();
 
+            double tempresult = (double)collection.Count() * (double)percent / 100.0;
+            int newcount = (int)Math.Ceiling(tempresult);
 
-            return collection;
+            //Becouse round of 0 == 0, but we need atleast 1 value
+            if (newcount == 0) newcount = 1;
+
+            List<T> result = new List<T>(newcount);
+
+            int i = 0;
+            foreach (var item in collection.Reverse())
+            {
+                result.Add(item);
+                i++;
+                if (i == newcount) break;
+            }
+            return result;
+        }
+        internal static IEnumerable<T> Top<T>(this IEnumerable<T> collection, int percent)
+        {
+            if (collection is null || collection.Count() == 0) return collection!;
+            if (percent < 0 || percent >= 101) throw new ArgumentException();
+
+            double tempresult = (double)collection.Count() * (double)percent / 100.0;
+            int newcount = (int)Math.Ceiling(tempresult);
+
+            //Becouse round of 0 == 0, but we need atleast 1 value
+            if (newcount == 0) newcount = 1;
+
+            List<T> result = new List<T>(newcount);
+
+            int i = 0;
+            foreach (var item in collection.Reverse())
+            {
+                result.Add(item);
+                i++;
+                if (i == newcount) break;
+            }
+            return result;
         }
     }
 }
