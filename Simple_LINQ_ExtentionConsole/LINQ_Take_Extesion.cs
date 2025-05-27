@@ -14,7 +14,6 @@ namespace Simple_LINQ_ExtentionConsole
             if (count == 0) return Enumerable.Empty<T>();
             if (count < 0 || collection.Count() < count) throw new ArgumentException();
 
-
             List<T> result = new List<T>(count);
             int i = 0;
 
@@ -24,7 +23,6 @@ namespace Simple_LINQ_ExtentionConsole
                 i++;
                 if (i == count) break;
             }
-
 
             return result;
         }
